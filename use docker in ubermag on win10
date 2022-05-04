@@ -1,0 +1,24 @@
+Install Linux on Windows with WSL2 (the details can be seen in https://docs.microsoft.com/en-us/windows/wsl/install-manual)
+following the steps:
+1.Enable the Windows Subsystem for Linux 
+    powershell as administrator input(
+    dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart).
+2. Check requirements for running WSL 2
+    For x64 systems: Version 1903 or later, with Build 18362 or later.
+    For ARM64 systems: Version 2004 or later, with Build 19041 or later.
+    or Windows 11.
+3. Enable Virtual Machine feature
+    powershell as administrator input(
+    dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart)
+4. Restart your machine to complete the WSL install and update to WSL 2
+5. Download the Linux kernel update package (Manual installation steps for older versions of WSL step-4)
+6. Set WSL 2 as your default version
+    powershell as administrator input(wsl --set-default-version 2)
+7. Install your Linux distribution of choice
+    open microsoft store and select your favorite Linux distribution, for example, Ubuntu 20.04 LTS.  
+    And then create a user account and password for your new Linux distribution.
+8. Download the software 'Docker'.
+9. Enter the ubermag and input(
+    import oommfc as oc
+    oc.runner.runner = oc.oommf.DockerOOMMFRunner(docker_exe='docker', image='oommf/oommf:20a2'))
+    according to the version of ubermag, this is 0.61.2
