@@ -1,3 +1,3 @@
-object: skyrmion
-tools: ubermag
-some codes to use ubermag
+# object: skyrmion
+# tools: ubermag
+# some codes to use ubermag
