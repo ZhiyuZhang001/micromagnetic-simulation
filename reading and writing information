@@ -1,0 +1,16 @@
+import os
+import csv
+file_path = 'f:/csv_file/sky_cluster_41_xy.csv'
+if not os.path.exists('f:/csv_file'):
+    os.mkdir('f:/csv_file')
+with open(file_path,'w+',newline='') as f:
+    writer = csv.writer(f)
+    writer.writerows((X,Y))  # (X,Y) is the locations of skyrmion
+    
+import csv
+file_path = 'f:/csv_file/sky_cluster_41_xy.csv'
+with open(file_path,'r') as f:
+    reader = csv.reader(f)
+    rows = [row for row in reader]
+list_rows041 = list(map(float,rows[0]))
+list_rows141 = list(map(float,rows[1]))
