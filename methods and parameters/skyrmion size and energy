@@ -1,0 +1,37 @@
+# calculate skyrmion size
+
+import micromagneticdata as md
+import numpy as np
+data = md.Data(name='***')
+y1 = data[0][0].orientation.line(p1=(-l,0,0),p2=(l,0,0)).data['vz']
+y = [0]*l*2*1e9
+x = data[0][0].orientation.line(p1=(-l,0,0),p2=(l,0,0)).data['px']*1e9
+arg = np.argwhere(np.diff(np.sign(y1-y))).flatten()
+a = list(x[arg])
+print(a[-1]-a[0])
+
+# calculate the energy of skyrmion
+import oommfc as oc
+density = oc.compute(system.energy.density,system)
+l1 = -200e-9
+l2 = 200e-9
+w1 = -100e-9
+w2 = 100e-9
+cell = 2e-9
+def suoyouge_func(x,y):
+    x0 = (arg[0]+arg[1])/2
+    y0 = 50 #圆心
+    r0 = (arg[1]-arg[0])/2 #半径（单元格数量）
+    if (x-x0)**2 + (y-y0)**2 <= r0**2:
+        return density.value[x,y,0,0]
+    else:
+        return None
+X = range(0,200)
+Y = range(0,200)
+satisfy = []
+for i in X:
+    for j in Y:
+        a = suoyouge_func(i,j)
+        if a != None:
+            satisfy.append(a)
+sum(satisfy) * len(satisfy) * cell * cell * 1e-9
