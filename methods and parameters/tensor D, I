@@ -1,0 +1,11 @@
+import micromagneticdata as md
+import discretisedfield as df
+import numpy as np
+
+data = md.Data(name='***')
+m = data[1][0].orientation
+d = m.derivative('x') @ m.derivative('x')
+D = (d.plane(z=0) * df.dS).integral('xy').value[0,0,0,2]/(4*np.pi) #tensor D
+
+i = (m.derivative('x') & m).y
+I = (I.plane('z') * df.dS).integral('xy').value[0,0,0,2]*1e9/(4*np.pi)
