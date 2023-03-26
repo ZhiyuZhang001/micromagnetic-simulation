@@ -1,3 +1,1 @@
-# object: skyrmion
-# tools: ubermag
-# some codes to use ubermag
+# Here are some codes for micromagnetic simulation by using Ubermag
