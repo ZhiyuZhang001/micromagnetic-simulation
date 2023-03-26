@@ -1,1 +1,48 @@
+# skyrmion
+data = md.Data(name='***')
+X = []
+Y = []
+for i in range(n):
+    m = data[1][i].orientation.plane(z=0)
+    q = m @ (m.derivative('x') & m.derivative('y'))
+    Q = df.integral(q * df.dx * df.dy) / (4 * np.pi)
+    x = df.Field(data[41][i].plane(z=0).mesh, dim =1, value = lambda pos:pos[0])
+    y = df.Field(data[41][i].plane(z=0).mesh, dim =1, value = lambda pos:pos[1])
+    Rx = df.integral(x * q * df.dx * df.dy) / df.integral(q * df.dx * df.dy)
+    Ry = df.integral(y * q * df.dx * df.dy) / df.integral(q * df.dx * df.dy)
+    X.append(Rx*1e9)
+    Y.append(Ry*1e9)
+   
+# skyrmionium
+X = []
+Y = []
+for i in range(n):
+    m = data[1][i].orientation
+    x = df.Field(data[1][i].mesh, dim =1, value = lambda pos:pos[0])
+    y = df.Field(data[1][i].mesh, dim =1, value = lambda pos:pos[1])
+    Rx = df.integral(x * (1-m.z) * df.dx * df.dy) / df.integral((1-m.z) * df.dx * df.dy)
+    Ry = df.integral(y * (1-m.z) * df.dx * df.dy) / df.integral((1-m.z) * df.dx * df.dy)
+    X.append(Rx*1e9)
+    Y.append(Ry*1e9)
+    
+# velocity
+t = data[1].table.data['t']*1e9
+delta_X = []
+delta_Y = []
+delta_T = []
+for i in range(len(X)-1):
+    delta_x = X[i+1] - X[i]
+    delta_X.append(delta_x)
+for i in range(len(Y)-1):
+    delta_y = Y[i+1] - Y[i]
+    delta_Y.append(delta_y)
+for i in range(len(t)-1):
+    delta_t = t[i+1] - t[i]
+    delta_T.append(delta_t)
+R = list(map(lambda x,y:np.sqrt(x**2+y**2),delta_X,delta_Y))
+v = list(map(lambda x,y: x/y,R,delta_T))
 
+# skyrmion hall angle
+v_x = list(map(lambda x,y: x/y,delta_X,delta_T))
+v_y = list(map(lambda x,y: x/y,delta_Y,delta_T))
+theta = list(map(lambda x,y: x/y,vy,vx))
